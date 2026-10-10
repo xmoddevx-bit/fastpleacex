@@ -20,7 +20,10 @@ public final class FastPleaceXSettingsScreen extends Screen {
     @Override
     protected void init() {
         int center = this.width / 2;
-        addDrawableChild(new ToggleButton(center - 100, this.height / 2 - 65, 200, 20, config.enabled));
+        addDrawableChild(ButtonWidget.builder(enabledLabel(config.enabled), button -> {
+                    config.enabled = !config.enabled;
+                    button.setMessage(enabledLabel(config.enabled));
+                }).dimensions(center - 100, this.height / 2 - 65, 200, 20).build());
         addDrawableChild(new DelaySlider(center - 100, this.height / 2 - 30, 200, 20, config.delayTicks));
         addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.blacklist"),
                         button -> client.setScreen(new FastPleaceXBlacklistScreen(this)))
@@ -43,20 +46,7 @@ public final class FastPleaceXSettingsScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
     }
 
-    private final class ToggleButton extends ButtonWidget {
-        private boolean value;
-        ToggleButton(int x, int y, int width, int height, boolean value) {
-            super(x, y, width, height, label(value), button -> {}, DEFAULT_NARRATION_SUPPLIER);
-            this.value = value;
-        }
-        @Override public void onPress() {
-            value = !value;
-            config.enabled = value;
-            setMessage(label(value));
-        }
-    }
-
-    private static Text label(boolean value) {
+    private static Text enabledLabel(boolean value) {
         return Text.translatable("screen.fastpleacex.enabled", Text.translatable(value ? "screen.fastpleacex.on" : "screen.fastpleacex.off"));
     }
 

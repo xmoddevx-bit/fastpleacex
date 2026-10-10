@@ -1,6 +1,6 @@
 # FastPleaceX
 
-Fabric-Client-Mod für Minecraft **1.21.1** von **Xmod_devX**.
+Fabric-Client-Mod für Minecraft **1.21.11** von **Xmod_devX**.
 
 ## Funktionen
 
@@ -12,18 +12,18 @@ Fabric-Client-Mod für Minecraft **1.21.1** von **Xmod_devX**.
 - Im Blacklist-Menü können Einträge durch Anklicken entfernt oder der aktuell gehaltene Block hinzugefügt werden.
 - Konfiguration wird unter `.minecraft/config/fastpleacex.properties` gespeichert.
 
-Die Verzögerung wird als Gleitkommawert gespeichert. Die tatsächliche Ausführung bleibt an den Minecraft-Client-Tick gebunden; Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Verwende die Mod nur dort, wo schnelle Platzierung erlaubt ist.
+Die Verzögerung wird als Gleitkommawert gespeichert. Die tatsächliche Ausführung bleibt an den Minecraft-Client-Tick gebunden; Werte unter einem Tick erhöhen daher nicht die physische Rate über die maximal mögliche Tick-Frequenz hinaus. Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Verwende die Mod nur dort, wo schnelle Platzierung erlaubt ist.
 
 ## Installation
 
 1. Installiere **Java 21**.
-2. Installiere **Fabric Loader für Minecraft 1.21.1** und die passende **Fabric API**.
+2. Installiere **Fabric Loader für Minecraft 1.21.11** und die passende **Fabric API**.
 3. Lade `fastpleacex-1.0.0.jar` aus den Releases bzw. aus dem Build-Verzeichnis herunter.
 4. Kopiere die JAR in den Minecraft-Ordner `mods`:
    - Windows: `%APPDATA%\\.minecraft\\mods`
    - Linux: `~/.minecraft/mods`
    - macOS: `~/Library/Application Support/minecraft/mods`
-5. Starte Minecraft mit dem Fabric-1.21.1-Profil.
+5. Starte Minecraft mit dem Fabric-1.21.11-Profil.
 
 ## Bedienung
 

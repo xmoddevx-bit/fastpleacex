@@ -1,7 +1,7 @@
 {
   "key.fastpleacex.open_settings": "FastPleaceX-Einstellungen öffnen",
   "key.fastpleacex.open_blacklist": "FastPleaceX-Blacklist öffnen",
-  "category.fastpleacex": "FastPleaceX",
+  "key.category.fastpleacex.main": "FastPleaceX",
   "screen.fastpleacex.title": "FastPleaceX",
   "screen.fastpleacex.delay": "Platzierverzögerung: %s Ticks",
   "screen.fastpleacex.enabled": "Schnellplatzieren: %s",

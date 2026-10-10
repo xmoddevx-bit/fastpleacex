@@ -10,6 +10,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.lwjgl.glfw.GLFW;
@@ -17,6 +18,8 @@ import org.lwjgl.glfw.GLFW;
 /** Client-Einstiegspunkt für FastPleaceX. */
 public final class FastPleaceXClient implements ClientModInitializer {
     private static final FastPleaceXConfig CONFIG = FastPleaceXConfig.get();
+    private static final KeyBinding.Category KEY_CATEGORY =
+            KeyBinding.Category.create(Identifier.of("fastpleacex", "main"));
     private static KeyBinding settingsKey;
     private static KeyBinding blacklistKey;
     private static double cooldown;
@@ -25,9 +28,9 @@ public final class FastPleaceXClient implements ClientModInitializer {
     public void onInitializeClient() {
         CONFIG.load();
         settingsKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.fastpleacex.open_settings", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, "category.fastpleacex"));
+                "key.fastpleacex.open_settings", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY));
         blacklistKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.fastpleacex.open_blacklist", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, "category.fastpleacex"));
+                "key.fastpleacex.open_blacklist", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, KEY_CATEGORY));
         ClientTickEvents.END_CLIENT_TICK.register(FastPleaceXClient::tick);
     }
 
