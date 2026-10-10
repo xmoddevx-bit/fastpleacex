@@ -6,13 +6,13 @@ Fabric-Client-Mod für Minecraft **1.21.1** von **Xmod_devX**.
 
 - Hält die rechte Maustaste gedrückt, um die normale Block-Interaktion wiederholt anzustoßen.
 - Einstellungsmenü mit `G`.
-- Aktivierung und Platzierintervall von 0–4 Ticks konfigurierbar.
+- **Stufenloser Verzögerungsregler:** 0,0 bis 4,0 Ticks in Zehntelschritten im GUI einstellbar.
 - Block-Blacklist mit eigenem Menü auf `K`.
 - Standardmäßig geschützt: `minecraft:obsidian` und `minecraft:respawn_anchor`.
 - Im Blacklist-Menü können Einträge durch Anklicken entfernt oder der aktuell gehaltene Block hinzugefügt werden.
 - Konfiguration wird unter `.minecraft/config/fastpleacex.properties` gespeichert.
 
-Die Mod verwendet ausschließlich die normale Fabric-/Minecraft-Interaktion. Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Verwende sie nur dort, wo schnelle Platzierung erlaubt ist.
+Die Verzögerung wird als Gleitkommawert gespeichert. Die tatsächliche Ausführung bleibt an den Minecraft-Client-Tick gebunden; Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Verwende die Mod nur dort, wo schnelle Platzierung erlaubt ist.
 
 ## Installation
 
@@ -28,6 +28,7 @@ Die Mod verwendet ausschließlich die normale Fabric-/Minecraft-Interaktion. Ser
 ## Bedienung
 
 - `G`: Allgemeine FastPleaceX-Einstellungen öffnen.
+- Schieberegler: Platzierverzögerung zwischen `0,0` und `4,0` Ticks in `0,1`-Schritten.
 - `K`: Blacklist öffnen.
 - Rechte Maustaste halten: Schnellplatzieren, sofern die Funktion aktiv ist und der gehaltene Block nicht auf der Blacklist steht.
 - Einträge im Blacklist-Menü anklicken, um sie zu entfernen; mit **Block aus Hand hinzufügen** wird der aktuell gehaltene Block eingetragen.

@@ -61,15 +61,17 @@ public final class FastPleaceXSettingsScreen extends Screen {
     }
 
     private final class DelaySlider extends SliderWidget {
-        DelaySlider(int x, int y, int width, int height, int value) {
-            super(x, y, width, height, Text.empty(), value / (double) FastPleaceXConfig.MAX_DELAY_TICKS);
+        DelaySlider(int x, int y, int width, int height, double value) {
+            super(x, y, width, height, Text.empty(), value / FastPleaceXConfig.MAX_DELAY_TICKS);
             updateMessage();
         }
         @Override protected void updateMessage() {
-            setMessage(Text.translatable("screen.fastpleacex.delay", FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS))));
+            double displayed = Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS * 10.0) / 10.0;
+            setMessage(Text.translatable("screen.fastpleacex.delay", displayed));
         }
         @Override protected void applyValue() {
-            config.delayTicks = FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS));
+            config.delayTicks = FastPleaceXConfig.clamp(
+                    Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS * 10.0) / 10.0);
         }
     }
 }

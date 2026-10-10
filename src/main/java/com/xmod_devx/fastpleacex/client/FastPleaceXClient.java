@@ -19,7 +19,7 @@ public final class FastPleaceXClient implements ClientModInitializer {
     private static final FastPleaceXConfig CONFIG = FastPleaceXConfig.get();
     private static KeyBinding settingsKey;
     private static KeyBinding blacklistKey;
-    private static int cooldown;
+    private static double cooldown;
 
     @Override
     public void onInitializeClient() {
@@ -35,14 +35,14 @@ public final class FastPleaceXClient implements ClientModInitializer {
         while (settingsKey.wasPressed()) client.setScreen(new FastPleaceXSettingsScreen(client.currentScreen));
         while (blacklistKey.wasPressed()) client.setScreen(new FastPleaceXBlacklistScreen(client.currentScreen));
 
-        if (cooldown > 0) cooldown--;
+        if (cooldown > 0.0) cooldown = Math.max(0.0, cooldown - 1.0);
         if (!CONFIG.enabled || client.player == null || client.interactionManager == null
                 || client.currentScreen != null || !client.options.useKey.isPressed()
                 || client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.BLOCK) return;
         if (!(client.crosshairTarget instanceof BlockHitResult blockHit)) return;
 
         ItemStack held = client.player.getMainHandStack();
-        if (held.isEmpty() || CONFIG.isBlacklisted(held) || cooldown > 0 || client.player.isUsingItem()) return;
+        if (held.isEmpty() || CONFIG.isBlacklisted(held) || cooldown > 0.0 || client.player.isUsingItem()) return;
 
         // Normale Client-Interaktion: Der Server entscheidet weiterhin über Reichweite, Cooldowns und Regeln.
         ActionResult result = client.interactionManager.interactBlock(client.player, Hand.MAIN_HAND, blockHit);

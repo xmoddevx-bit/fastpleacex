@@ -3,7 +3,7 @@
   "key.fastpleacex.open_blacklist": "FastPleaceX-Blacklist öffnen",
   "category.fastpleacex": "FastPleaceX",
   "screen.fastpleacex.title": "FastPleaceX",
-  "screen.fastpleacex.delay": "Platzierintervall: %s Ticks",
+  "screen.fastpleacex.delay": "Platzierverzögerung: %s Ticks",
   "screen.fastpleacex.enabled": "Schnellplatzieren: %s",
   "screen.fastpleacex.on": "AN",
   "screen.fastpleacex.off": "AUS",
@@ -13,5 +13,5 @@
   "screen.fastpleacex.add_held": "Block aus Hand hinzufügen",
   "screen.fastpleacex.back": "Zurück",
   "screen.fastpleacex.done": "Fertig",
-  "screen.fastpleacex.notice": "Server-/Vanilla-Limits werden nicht umgangen."
+  "screen.fastpleacex.notice": "0,0–4,0 Ticks, in Zehntelschritten einstellbar. Serverlimits bleiben aktiv."
 }
