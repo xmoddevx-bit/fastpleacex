@@ -18,43 +18,34 @@ import org.lwjgl.glfw.GLFW;
 public final class FastPleaceXClient implements ClientModInitializer {
     private static final FastPleaceXConfig CONFIG = FastPleaceXConfig.get();
     private static KeyBinding settingsKey;
+    private static KeyBinding blacklistKey;
     private static int cooldown;
 
     @Override
     public void onInitializeClient() {
         CONFIG.load();
         settingsKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.fastpleacex.open_settings",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_G,
-                "category.fastpleacex"
-        ));
-
+                "key.fastpleacex.open_settings", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, "category.fastpleacex"));
+        blacklistKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.fastpleacex.open_blacklist", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, "category.fastpleacex"));
         ClientTickEvents.END_CLIENT_TICK.register(FastPleaceXClient::tick);
     }
 
     private static void tick(MinecraftClient client) {
-        while (settingsKey.wasPressed()) {
-            client.setScreen(new FastPleaceXSettingsScreen(client.currentScreen));
-        }
+        while (settingsKey.wasPressed()) client.setScreen(new FastPleaceXSettingsScreen(client.currentScreen));
+        while (blacklistKey.wasPressed()) client.setScreen(new FastPleaceXBlacklistScreen(client.currentScreen));
 
         if (cooldown > 0) cooldown--;
         if (!CONFIG.enabled || client.player == null || client.interactionManager == null
                 || client.currentScreen != null || !client.options.useKey.isPressed()
-                || client.crosshairTarget == null
-                || client.crosshairTarget.getType() != HitResult.Type.BLOCK) {
-            return;
-        }
-
+                || client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.BLOCK) return;
         if (!(client.crosshairTarget instanceof BlockHitResult blockHit)) return;
-        ItemStack held = client.player.getMainHandStack();
-        if (held.isEmpty() || cooldown > 0 || client.player.isUsingItem()) return;
 
-        // Dies nutzt ausschließlich die normale Client-Interaktion. Der Server entscheidet,
-        // ob und wie schnell der Block platziert wird; keine Limits oder Prüfungen werden umgangen.
+        ItemStack held = client.player.getMainHandStack();
+        if (held.isEmpty() || CONFIG.isBlacklisted(held) || cooldown > 0 || client.player.isUsingItem()) return;
+
+        // Normale Client-Interaktion: Der Server entscheidet weiterhin über Reichweite, Cooldowns und Regeln.
         ActionResult result = client.interactionManager.interactBlock(client.player, Hand.MAIN_HAND, blockHit);
-        if (result.isAccepted()) {
-            cooldown = CONFIG.delayTicks;
-        }
+        if (result.isAccepted()) cooldown = CONFIG.delayTicks;
     }
 }

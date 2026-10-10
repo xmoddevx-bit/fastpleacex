@@ -1,11 +1,17 @@
 {
   "key.fastpleacex.open_settings": "FastPleaceX-Einstellungen öffnen",
+  "key.fastpleacex.open_blacklist": "FastPleaceX-Blacklist öffnen",
   "category.fastpleacex": "FastPleaceX",
   "screen.fastpleacex.title": "FastPleaceX",
   "screen.fastpleacex.delay": "Platzierintervall: %s Ticks",
   "screen.fastpleacex.enabled": "Schnellplatzieren: %s",
   "screen.fastpleacex.on": "AN",
   "screen.fastpleacex.off": "AUS",
+  "screen.fastpleacex.blacklist": "Blacklist bearbeiten (K)",
+  "screen.fastpleacex.blacklist_title": "FastPleaceX-Blacklist",
+  "screen.fastpleacex.blacklist_hint": "Klicke einen Eintrag zum Entfernen",
+  "screen.fastpleacex.add_held": "Block aus Hand hinzufügen",
+  "screen.fastpleacex.back": "Zurück",
   "screen.fastpleacex.done": "Fertig",
   "screen.fastpleacex.notice": "Server-/Vanilla-Limits werden nicht umgangen."
 }

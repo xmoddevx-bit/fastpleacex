@@ -7,12 +7,10 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
 
-/** Einfaches Einstellungsmenü, erreichbar mit G. */
+/** Allgemeines Einstellungsmenü, erreichbar mit G. */
 public final class FastPleaceXSettingsScreen extends Screen {
     private final Screen parent;
     private final FastPleaceXConfig config = FastPleaceXConfig.get();
-    private ToggleButton enabledButton;
-    private DelaySlider delaySlider;
 
     public FastPleaceXSettingsScreen(Screen parent) {
         super(Text.translatable("screen.fastpleacex.title"));
@@ -22,14 +20,13 @@ public final class FastPleaceXSettingsScreen extends Screen {
     @Override
     protected void init() {
         int center = this.width / 2;
-        enabledButton = new ToggleButton(center - 100, this.height / 2 - 55, 200, 20, config.enabled);
-        addDrawableChild(enabledButton);
-
-        delaySlider = new DelaySlider(center - 100, this.height / 2 - 20, 200, 20, config.delayTicks);
-        addDrawableChild(delaySlider);
-
+        addDrawableChild(new ToggleButton(center - 100, this.height / 2 - 65, 200, 20, config.enabled));
+        addDrawableChild(new DelaySlider(center - 100, this.height / 2 - 30, 200, 20, config.delayTicks));
+        addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.blacklist"),
+                        button -> client.setScreen(new FastPleaceXBlacklistScreen(this)))
+                .dimensions(center - 100, this.height / 2 + 5, 200, 20).build());
         addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.done"), button -> close())
-                .dimensions(center - 100, this.height / 2 + 25, 200, 20).build());
+                .dimensions(center - 100, this.height / 2 + 40, 200, 20).build());
     }
 
     @Override
@@ -42,8 +39,7 @@ public final class FastPleaceXSettingsScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(textRenderer, title, width / 2, 30, 0xFFFFFF);
-        context.drawCenteredTextWithShadow(textRenderer,
-                Text.translatable("screen.fastpleacex.notice"), width / 2, height - 35, 0xAAAAAA);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.notice"), width / 2, height - 35, 0xAAAAAA);
         super.render(context, mouseX, mouseY, delta);
     }
 
@@ -53,8 +49,7 @@ public final class FastPleaceXSettingsScreen extends Screen {
             super(x, y, width, height, label(value), button -> {}, DEFAULT_NARRATION_SUPPLIER);
             this.value = value;
         }
-        @Override
-        public void onPress() {
+        @Override public void onPress() {
             value = !value;
             config.enabled = value;
             setMessage(label(value));
@@ -70,12 +65,10 @@ public final class FastPleaceXSettingsScreen extends Screen {
             super(x, y, width, height, Text.empty(), value / (double) FastPleaceXConfig.MAX_DELAY_TICKS);
             updateMessage();
         }
-        @Override
-        protected void updateMessage() {
+        @Override protected void updateMessage() {
             setMessage(Text.translatable("screen.fastpleacex.delay", FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS))));
         }
-        @Override
-        protected void applyValue() {
+        @Override protected void applyValue() {
             config.delayTicks = FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS));
         }
     }
