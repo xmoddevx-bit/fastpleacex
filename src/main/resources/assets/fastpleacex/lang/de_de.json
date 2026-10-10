@@ -1,0 +1,11 @@
+{
+  "key.fastpleacex.open_settings": "FastPleaceX-Einstellungen öffnen",
+  "category.fastpleacex": "FastPleaceX",
+  "screen.fastpleacex.title": "FastPleaceX",
+  "screen.fastpleacex.delay": "Platzierintervall: %s Ticks",
+  "screen.fastpleacex.enabled": "Schnellplatzieren: %s",
+  "screen.fastpleacex.on": "AN",
+  "screen.fastpleacex.off": "AUS",
+  "screen.fastpleacex.done": "Fertig",
+  "screen.fastpleacex.notice": "Server-/Vanilla-Limits werden nicht umgangen."
+}

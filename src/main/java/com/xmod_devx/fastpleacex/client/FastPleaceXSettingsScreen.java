@@ -1,0 +1,82 @@
+package com.xmod_devx.fastpleacex.client;
+
+import com.xmod_devx.fastpleacex.config.FastPleaceXConfig;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.text.Text;
+
+/** Einfaches Einstellungsmenü, erreichbar mit G. */
+public final class FastPleaceXSettingsScreen extends Screen {
+    private final Screen parent;
+    private final FastPleaceXConfig config = FastPleaceXConfig.get();
+    private ToggleButton enabledButton;
+    private DelaySlider delaySlider;
+
+    public FastPleaceXSettingsScreen(Screen parent) {
+        super(Text.translatable("screen.fastpleacex.title"));
+        this.parent = parent;
+    }
+
+    @Override
+    protected void init() {
+        int center = this.width / 2;
+        enabledButton = new ToggleButton(center - 100, this.height / 2 - 55, 200, 20, config.enabled);
+        addDrawableChild(enabledButton);
+
+        delaySlider = new DelaySlider(center - 100, this.height / 2 - 20, 200, 20, config.delayTicks);
+        addDrawableChild(delaySlider);
+
+        addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.done"), button -> close())
+                .dimensions(center - 100, this.height / 2 + 25, 200, 20).build());
+    }
+
+    @Override
+    public void close() {
+        config.save();
+        if (client != null) client.setScreen(parent);
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        renderBackground(context, mouseX, mouseY, delta);
+        context.drawCenteredTextWithShadow(textRenderer, title, width / 2, 30, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(textRenderer,
+                Text.translatable("screen.fastpleacex.notice"), width / 2, height - 35, 0xAAAAAA);
+        super.render(context, mouseX, mouseY, delta);
+    }
+
+    private final class ToggleButton extends ButtonWidget {
+        private boolean value;
+        ToggleButton(int x, int y, int width, int height, boolean value) {
+            super(x, y, width, height, label(value), button -> {}, DEFAULT_NARRATION_SUPPLIER);
+            this.value = value;
+        }
+        @Override
+        public void onPress() {
+            value = !value;
+            config.enabled = value;
+            setMessage(label(value));
+        }
+    }
+
+    private static Text label(boolean value) {
+        return Text.translatable("screen.fastpleacex.enabled", Text.translatable(value ? "screen.fastpleacex.on" : "screen.fastpleacex.off"));
+    }
+
+    private final class DelaySlider extends SliderWidget {
+        DelaySlider(int x, int y, int width, int height, int value) {
+            super(x, y, width, height, Text.empty(), value / (double) FastPleaceXConfig.MAX_DELAY_TICKS);
+            updateMessage();
+        }
+        @Override
+        protected void updateMessage() {
+            setMessage(Text.translatable("screen.fastpleacex.delay", FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS))));
+        }
+        @Override
+        protected void applyValue() {
+            config.delayTicks = FastPleaceXConfig.clamp((int) Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS));
+        }
+    }
+}

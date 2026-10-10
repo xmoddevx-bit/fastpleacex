@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "fastpleacex",
+  "version": "${version}",
+  "name": "FastPleaceX",
+  "description": "Schnelles, konfigurierbares Blockplatzieren durch Xmod_devX.",
+  "authors": ["Xmod_devX"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.xmod_devx.fastpleacex.client.FastPleaceXClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
