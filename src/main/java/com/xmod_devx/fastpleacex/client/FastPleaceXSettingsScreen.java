@@ -23,9 +23,10 @@ public final class FastPleaceXSettingsScreen extends Screen {
         int top = height / 2 - 105;
         addDrawableChild(ButtonWidget.builder(enabledLabel(config.enabled), button -> {
                     config.enabled = !config.enabled;
+                    config.save();
                     button.setMessage(enabledLabel(config.enabled));
                 }).dimensions(left, top + 38, 360, 24).build());
-        addDrawableChild(new DelaySlider(left, top + 82, 360, 24, config.delayTicks));
+        addDrawableChild(new DelaySlider(left, top + 82, 360, 24, config.delayMs));
         addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.blacklist"),
                         button -> client.setScreen(new FastPleaceXBlacklistScreen(this)))
                 .dimensions(left, top + 126, 360, 24).build());
@@ -46,15 +47,14 @@ public final class FastPleaceXSettingsScreen extends Screen {
         int top = height / 2 - 145;
         int right = width / 2 + 210;
         int bottom = height / 2 + 125;
-
         context.fill(left + 4, top + 4, right + 4, bottom + 4, 0x70000000);
         context.fill(left, top, right, bottom, 0xE611141A);
         context.fill(left, top, right, top + 3, 0xFF21D4D8);
         context.drawTextWithShadow(textRenderer, title, left + 22, top + 18, 0xFFFFFFFF);
         context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.subtitle"), left + 22, top + 30, 0xFF8E99A8);
-        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.general"), left + 25, top + 26 + 25, 0xFF21D4D8);
-        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.timing"), left + 25, top + 70 + 25, 0xFFFFB347);
-        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.protection"), left + 25, top + 114 + 25, 0xFF21D4D8);
+        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.general"), left + 25, top + 51, 0xFF21D4D8);
+        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.timing"), left + 25, top + 95, 0xFFFFB347);
+        context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.section.protection"), left + 25, top + 139, 0xFF21D4D8);
         context.drawTextWithShadow(textRenderer, Text.translatable("screen.fastpleacex.notice"), left + 22, bottom - 18, 0xFF8E99A8);
         super.render(context, mouseX, mouseY, delta);
     }
@@ -65,16 +65,17 @@ public final class FastPleaceXSettingsScreen extends Screen {
 
     private final class DelaySlider extends SliderWidget {
         DelaySlider(int x, int y, int width, int height, double value) {
-            super(x, y, width, height, Text.empty(), value / FastPleaceXConfig.MAX_DELAY_TICKS);
+            super(x, y, width, height, Text.empty(), value / FastPleaceXConfig.MAX_DELAY_MS);
             updateMessage();
         }
         @Override protected void updateMessage() {
-            double displayed = Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS * 10.0) / 10.0;
+            double displayed = Math.round(value * FastPleaceXConfig.MAX_DELAY_MS);
             setMessage(Text.translatable("screen.fastpleacex.delay", displayed));
         }
         @Override protected void applyValue() {
-            config.delayTicks = FastPleaceXConfig.clamp(
-                    Math.round(value * FastPleaceXConfig.MAX_DELAY_TICKS * 10.0) / 10.0);
+            config.delayMs = FastPleaceXConfig.clamp(
+                    Math.round(value * FastPleaceXConfig.MAX_DELAY_MS));
+            config.save();
         }
     }
 }

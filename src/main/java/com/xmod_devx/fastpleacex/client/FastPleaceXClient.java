@@ -22,7 +22,8 @@ public final class FastPleaceXClient implements ClientModInitializer {
             KeyBinding.Category.create(Identifier.of("fastpleacex", "main"));
     private static KeyBinding settingsKey;
     private static KeyBinding blacklistKey;
-    private static double cooldown;
+    private static KeyBinding toggleKey;
+    private static long nextPlacementNanos;
 
     @Override
     public void onInitializeClient() {
@@ -31,24 +32,36 @@ public final class FastPleaceXClient implements ClientModInitializer {
                 "key.fastpleacex.open_settings", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY));
         blacklistKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.fastpleacex.open_blacklist", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, KEY_CATEGORY));
+        toggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.fastpleacex.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, KEY_CATEGORY));
         ClientTickEvents.END_CLIENT_TICK.register(FastPleaceXClient::tick);
     }
 
     private static void tick(MinecraftClient client) {
         while (settingsKey.wasPressed()) client.setScreen(new FastPleaceXSettingsScreen(client.currentScreen));
         while (blacklistKey.wasPressed()) client.setScreen(new FastPleaceXBlacklistScreen(client.currentScreen));
+        while (toggleKey.wasPressed()) {
+            CONFIG.enabled = !CONFIG.enabled;
+            CONFIG.save();
+            if (!CONFIG.enabled) nextPlacementNanos = 0L;
+        }
 
-        if (cooldown > 0.0) cooldown = Math.max(0.0, cooldown - 1.0);
         if (!CONFIG.enabled || client.player == null || client.interactionManager == null
                 || client.currentScreen != null || !client.options.useKey.isPressed()
                 || client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.BLOCK) return;
         if (!(client.crosshairTarget instanceof BlockHitResult blockHit)) return;
 
         ItemStack held = client.player.getMainHandStack();
-        if (held.isEmpty() || CONFIG.isBlacklisted(held) || cooldown > 0.0 || client.player.isUsingItem()) return;
+        if (held.isEmpty() || CONFIG.isBlacklisted(held) || client.player.isUsingItem()) return;
+
+        long now = System.nanoTime();
+        if (now < nextPlacementNanos) return;
 
         // Normale Client-Interaktion: Der Server entscheidet weiterhin über Reichweite, Cooldowns und Regeln.
         ActionResult result = client.interactionManager.interactBlock(client.player, Hand.MAIN_HAND, blockHit);
-        if (result.isAccepted()) cooldown = CONFIG.delayTicks;
+        if (result.isAccepted()) {
+            long delayNanos = Math.round(CONFIG.delayMs * 1_000_000.0);
+            nextPlacementNanos = now + delayNanos;
+        }
     }
 }

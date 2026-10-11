@@ -15,15 +15,15 @@ import java.util.Set;
 
 /** Persistente Konfiguration ohne zusätzliche Mod-Abhängigkeit. */
 public final class FastPleaceXConfig {
-    public static final double MIN_DELAY_TICKS = 0.0;
-    public static final double MAX_DELAY_TICKS = 4.0;
+    public static final double MIN_DELAY_MS = 0.0;
+    public static final double MAX_DELAY_MS = 1000.0;
     private static final String DEFAULT_BLACKLIST = "minecraft:obsidian,minecraft:respawn_anchor";
     private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("fastpleacex.properties");
     private static final FastPleaceXConfig INSTANCE = new FastPleaceXConfig();
 
     public boolean enabled = true;
-    /** Verzögerung in Ticks; die GUI stellt Zehntelschritte zwischen 0,0 und 4,0 dar. */
-    public double delayTicks = 0.0;
+    /** Platzierverzögerung in Millisekunden. */
+    public double delayMs = 0.0;
     public final Set<String> blacklist = new LinkedHashSet<>();
 
     private FastPleaceXConfig() {
@@ -51,7 +51,13 @@ public final class FastPleaceXConfig {
         try (var reader = Files.newBufferedReader(FILE)) {
             properties.load(reader);
             enabled = Boolean.parseBoolean(properties.getProperty("enabled", "true"));
-            delayTicks = clamp(Double.parseDouble(properties.getProperty("delayTicks", "0.0")));
+            String newDelay = properties.getProperty("delayMs");
+            if (newDelay != null) {
+                delayMs = clamp(Double.parseDouble(newDelay));
+            } else {
+                // Migration aus der bisherigen Tick-Konfiguration: 1 Tick = 50 ms.
+                delayMs = clamp(Double.parseDouble(properties.getProperty("delayTicks", "0.0")) * 50.0);
+            }
             blacklist.clear();
             String saved = properties.getProperty("blacklist", DEFAULT_BLACKLIST);
             for (String id : saved.split(",")) {
@@ -66,7 +72,7 @@ public final class FastPleaceXConfig {
     public void save() {
         Properties properties = new Properties();
         properties.setProperty("enabled", Boolean.toString(enabled));
-        properties.setProperty("delayTicks", String.format(Locale.ROOT, "%.1f", clamp(delayTicks)));
+        properties.setProperty("delayMs", String.format(Locale.ROOT, "%.0f", clamp(delayMs)));
         properties.setProperty("blacklist", String.join(",", blacklist));
         try {
             Files.createDirectories(FILE.getParent());
@@ -79,6 +85,6 @@ public final class FastPleaceXConfig {
     }
 
     public static double clamp(double value) {
-        return Math.max(MIN_DELAY_TICKS, Math.min(MAX_DELAY_TICKS, value));
+        return Math.max(MIN_DELAY_MS, Math.min(MAX_DELAY_MS, value));
     }
 }

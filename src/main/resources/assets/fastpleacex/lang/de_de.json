@@ -1,13 +1,14 @@
 {
   "key.fastpleacex.open_settings": "FastPleaceX-Einstellungen öffnen",
   "key.fastpleacex.open_blacklist": "FastPleaceX-Blacklist öffnen",
+  "key.fastpleacex.toggle": "FastPleaceX ein-/ausschalten",
   "key.category.fastpleacex.main": "FastPleaceX",
   "screen.fastpleacex.title": "FastPleaceX",
   "screen.fastpleacex.subtitle": "Client-Modul  •  sichere Interaktion  •  1.21.11",
   "screen.fastpleacex.section.general": "ALLGEMEIN",
   "screen.fastpleacex.section.timing": "TIMING",
   "screen.fastpleacex.section.protection": "SCHUTZ",
-  "screen.fastpleacex.delay": "Verzögerung: %s Ticks",
+  "screen.fastpleacex.delay": "Verzögerung: %s ms",
   "screen.fastpleacex.enabled": "Schnellplatzieren: %s",
   "screen.fastpleacex.on": "AN",
   "screen.fastpleacex.off": "AUS",
@@ -20,5 +21,5 @@
   "screen.fastpleacex.empty": "Keine geschützten Blocktypen",
   "screen.fastpleacex.back": "Zurück",
   "screen.fastpleacex.done": "Schließen",
-  "screen.fastpleacex.notice": "G öffnen  •  K Blacklist  •  Serverlimits bleiben aktiv"
+  "screen.fastpleacex.notice": "P an/aus  •  G Einstellungen  •  K Blacklist  •  Serverlimits bleiben aktiv"
 }

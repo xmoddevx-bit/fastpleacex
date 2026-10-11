@@ -6,13 +6,14 @@ Fabric-Client-Mod für Minecraft **1.21.11** von **Xmod_devX**.
 
 - Hält die rechte Maustaste gedrückt, um die normale Block-Interaktion wiederholt anzustoßen.
 - Einstellungsmenü mit `G`.
-- **Stufenloser Verzögerungsregler:** 0,0 bis 4,0 Ticks in Zehntelschritten im GUI einstellbar.
+- **Fein abgestufter Verzögerungsregler:** 0 bis 1000 Millisekunden im GUI einstellbar.
+- **Direkter Toggle:** Mit `P` lässt sich FastPleaceX sofort ein- oder ausschalten; der Status wird direkt gespeichert.
 - Block-Blacklist mit eigenem Menü auf `K`.
 - Standardmäßig geschützt: `minecraft:obsidian` und `minecraft:respawn_anchor`.
 - Im Blacklist-Menü können Einträge durch Anklicken entfernt oder der aktuell gehaltene Block hinzugefügt werden.
 - Konfiguration wird unter `.minecraft/config/fastpleacex.properties` gespeichert.
 
-Die Verzögerung wird als Gleitkommawert gespeichert. Die tatsächliche Ausführung bleibt an den Minecraft-Client-Tick gebunden; Werte unter einem Tick erhöhen daher nicht die physische Rate über die maximal mögliche Tick-Frequenz hinaus. Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Verwende die Mod nur dort, wo schnelle Platzierung erlaubt ist.
+Die Verzögerung wird in Millisekunden gespeichert. Die normale Client-Interaktion bleibt erhalten; Serverregeln, Vanilla-Cooldowns, Reichweiten- und Anti-Cheat-Prüfungen werden **nicht** umgangen. Die Spiel- und Serverleistung kann die tatsächliche Rate weiterhin begrenzen. Verwende die Mod nur dort, wo schnelle Platzierung erlaubt ist.
 
 ## Installation
 
@@ -28,7 +29,8 @@ Die Verzögerung wird als Gleitkommawert gespeichert. Die tatsächliche Ausführ
 ## Bedienung
 
 - `G`: Allgemeine FastPleaceX-Einstellungen öffnen.
-- Schieberegler: Platzierverzögerung zwischen `0,0` und `4,0` Ticks in `0,1`-Schritten.
+- Schieberegler: Platzierverzögerung zwischen `0` und `1000 ms`.
+- `P`: FastPleaceX sofort ein-/ausschalten.
 - `K`: Blacklist öffnen.
 - Rechte Maustaste halten: Schnellplatzieren, sofern die Funktion aktiv ist und der gehaltene Block nicht auf der Blacklist steht.
 - Einträge im Blacklist-Menü anklicken, um sie zu entfernen; mit **Block aus Hand hinzufügen** wird der aktuell gehaltene Block eingetragen.
