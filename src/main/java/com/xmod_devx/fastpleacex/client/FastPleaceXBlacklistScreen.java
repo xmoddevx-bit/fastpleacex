@@ -49,7 +49,8 @@ public final class FastPleaceXBlacklistScreen extends Screen {
         }
 
         int bottom = height / 2 + 140;
-        addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.add_held"), button -> addHeldBlock())
+        addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.open_picker"), button ->
+                        client.setScreen(new FastPleaceXBlockPickerScreen(this)))
                 .dimensions(left, bottom - 72, 175, 24).build());
         addDrawableChild(ButtonWidget.builder(Text.translatable("screen.fastpleacex.reset"), button -> {
                     config.resetBlacklistToDefaults();

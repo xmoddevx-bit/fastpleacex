@@ -16,10 +16,17 @@
   "screen.fastpleacex.blacklist_title": "FastPleaceX  /  BLACKLIST",
   "screen.fastpleacex.blacklist_hint": "Klicke einen Eintrag zum Entfernen",
   "screen.fastpleacex.blacklist_count": "Geschützt: %s Blocktypen",
+  "screen.fastpleacex.open_picker": "Block auswählen",
   "screen.fastpleacex.add_held": "Aus Hand hinzufügen",
   "screen.fastpleacex.reset": "Standard wiederherstellen",
   "screen.fastpleacex.empty": "Keine geschützten Blocktypen",
   "screen.fastpleacex.back": "Zurück",
   "screen.fastpleacex.done": "Schließen",
-  "screen.fastpleacex.notice": "P an/aus  •  G Einstellungen  •  K Blacklist  •  Serverlimits bleiben aktiv"
+  "screen.fastpleacex.notice": "P an/aus  •  G Einstellungen  •  K Blacklist  •  Serverlimits bleiben aktiv",
+  "screen.fastpleacex.block_picker_title": "FastPleaceX  /  BLOCK AUSWÄHLEN",
+  "screen.fastpleacex.block_picker_hint": "%s BlockItems registriert  •  Suche oder Seiten verwenden",
+  "screen.fastpleacex.search": "Block-ID suchen",
+  "screen.fastpleacex.no_results": "Keine passenden Blöcke",
+  "screen.fastpleacex.page": "Seite %s / %s",
+  "hud.fastpleacex.status": "FastPlace: %s  |  %s ms"
 }

@@ -9,6 +9,8 @@ Fabric-Client-Mod für Minecraft **1.21.11** von **Xmod_devX**.
 - **Fein abgestufter Verzögerungsregler:** 0 bis 1000 Millisekunden im GUI einstellbar.
 - **Direkter Toggle:** Mit `P` lässt sich FastPleaceX sofort ein- oder ausschalten; der Status wird direkt gespeichert.
 - Block-Blacklist mit eigenem Menü auf `K`.
+- Block-Picker mit Suche und Seiten für alle registrierten Minecraft-BlockItems.
+- HUD-Statusanzeige mit `OFF`, `ON` und `ACTIVE`.
 - Standardmäßig geschützt: `minecraft:obsidian` und `minecraft:respawn_anchor`.
 - Im Blacklist-Menü können Einträge durch Anklicken entfernt oder der aktuell gehaltene Block hinzugefügt werden.
 - Konfiguration wird unter `.minecraft/config/fastpleacex.properties` gespeichert.
@@ -32,8 +34,12 @@ Die Verzögerung wird in Millisekunden gespeichert. Die normale Client-Interakti
 - Schieberegler: Platzierverzögerung zwischen `0` und `1000 ms`.
 - `P`: FastPleaceX sofort ein-/ausschalten.
 - `K`: Blacklist öffnen.
+- **Block auswählen:** Öffnet die vollständige BlockItem-Liste. Suche nach IDs wie `obsidian`, `respawn_anchor`, `grass_block` oder `bedrock`, oder blättere mit den Seiten-Schaltflächen.
 - Rechte Maustaste halten: Schnellplatzieren, sofern die Funktion aktiv ist und der gehaltene Block nicht auf der Blacklist steht.
-- Einträge im Blacklist-Menü anklicken, um sie zu entfernen; mit **Block aus Hand hinzufügen** wird der aktuell gehaltene Block eingetragen.
+- Einträge im Blacklist-Menü anklicken, um sie zu entfernen; mit **Block auswählen** öffnet sich die vollständige BlockItem-Liste mit Suche und Seiten.
+- Der HUD-Indikator oben links zeigt `OFF`, `ON` oder `ACTIVE`.
+
+Eine ausführliche Anleitung steht in [BLACKLIST_GUIDE.md](BLACKLIST_GUIDE.md).
 
 ## Bauen aus dem Quellcode
 

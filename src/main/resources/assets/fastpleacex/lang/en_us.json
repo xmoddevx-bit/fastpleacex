@@ -16,10 +16,17 @@
   "screen.fastpleacex.blacklist_title": "FastPleaceX  /  BLACKLIST",
   "screen.fastpleacex.blacklist_hint": "Click an entry to remove it",
   "screen.fastpleacex.blacklist_count": "Protected: %s block types",
+  "screen.fastpleacex.open_picker": "Select block",
   "screen.fastpleacex.add_held": "Add held block",
   "screen.fastpleacex.reset": "Restore defaults",
   "screen.fastpleacex.empty": "No protected block types",
   "screen.fastpleacex.back": "Back",
   "screen.fastpleacex.done": "Close",
-  "screen.fastpleacex.notice": "P toggle  •  G settings  •  K blacklist  •  server limits remain active"
+  "screen.fastpleacex.notice": "P toggle  •  G settings  •  K blacklist  •  server limits remain active",
+  "screen.fastpleacex.block_picker_title": "FastPleaceX  /  SELECT BLOCK",
+  "screen.fastpleacex.block_picker_hint": "%s BlockItems registered  •  use search or pages",
+  "screen.fastpleacex.search": "Search block ID",
+  "screen.fastpleacex.no_results": "No matching blocks",
+  "screen.fastpleacex.page": "Page %s / %s",
+  "hud.fastpleacex.status": "FastPlace: %s  |  %s ms"
 }
